@@ -160,7 +160,7 @@ int main()
 	if(win){}
 	else
 	{
-		cout << "Sorry, you lost. Word was: " << wordToGuess;
+		cout << "Sorry, you lost. The word was: " << wordToGuess;
 	}
 	
 	
