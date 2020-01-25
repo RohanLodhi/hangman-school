@@ -1,87 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <string>
-#include <time.h>
 
 using namespace std;
 
-void PrintMessage(string message, bool printTop = true, bool printBottom = true)
-{
-    if (printTop)
-    {
-        cout << "+---------------------------------+" << endl;
-        cout << "|";
-    }
-    else
-    {
-        cout << "|";
-    }
-    bool front = true;
-    for (int i = message.length(); i < 33; i++)
-    {
-        if (front)
-        {
-            message = " " + message;
-        }
-        else
-        {
-            message = message + " ";
-        }
-        front = !front;
-    }
-    cout << message.c_str();
- 
-    if (printBottom)
-    {
-        cout << "|" << endl;
-        cout << "+---------------------------------+" << endl;
-    }
-    else
-    {
-        cout << "|" << endl;
-    }
-}
 void DrawHangman(int guessCount = 0)
 {
-    if (guessCount >= 1)
-        PrintMessage("|", false, false);
-    else
-        PrintMessage("", false, false);
- 
-    if (guessCount >= 2)
-        PrintMessage("|", false, false);
-    else
-        PrintMessage("", false, false);
- 
-    if (guessCount >= 3)
-        PrintMessage("O", false, false);
-    else
-        PrintMessage("", false, false);
- 
-    if (guessCount == 4)
-        PrintMessage("/  ", false, false);
-   
-    if (guessCount == 5)
-        PrintMessage("/| ", false, false);
- 
-    if (guessCount >= 6)
-        PrintMessage("/|\\", false, false);
-    else
-        PrintMessage("", false, false);
- 
-    if (guessCount >= 7)
-        PrintMessage("|", false, false);
-    else
-        PrintMessage("", false, false);
- 
-    if (guessCount == 8)
-        PrintMessage("/", false, false);
- 
-    if (guessCount >= 9)
-        PrintMessage("/ \\", false, false);
-    else
-        PrintMessage("", false, false);
+    cout << "You have " << 10-guessCount << " tries left." << endl;
 }
 void PrintLetters(string input, char from, char to)
 {
@@ -96,13 +21,15 @@ void PrintLetters(string input, char from, char to)
         else
             s += "  ";
     }
-    PrintMessage(s, false, false);
+    cout << s;
 }
 void PrintAvailableLetters(string taken)
 {
-    PrintMessage("Available letters");
+    cout << "Available letters" << endl <<endl;
     PrintLetters(taken, 'A', 'M');
+    cout << endl;
     PrintLetters(taken, 'N', 'Z');
+    cout << endl <<endl;
 }
 bool PrintWordAndCheckWin(string word, string guessed)
 {
@@ -121,7 +48,7 @@ bool PrintWordAndCheckWin(string word, string guessed)
             s += " ";
         }
     }
-    PrintMessage(s, false);
+    cout << s;
     return won;
 }
 string LoadRandomWord(string path)
@@ -162,7 +89,7 @@ int categories()
 		return choice;
 	}
 	else{
-		cout << "Incorrect input";
+		cout << "Incorrect input" << endl;
 		categories();
 	}
     
@@ -202,17 +129,17 @@ int main()
     do
     {
         system("clear"); //cls in windows
-        PrintMessage("HANGMAN");
+        cout << endl;
         DrawHangman(tries);
         PrintAvailableLetters(guesses);
-        PrintMessage("Guess the word");
+        cout <<endl << "Guess the word" << endl <<endl;
         win = PrintWordAndCheckWin(wordToGuess, guesses);
  
         if (win)
             break;
  
         char x;
-        cout << ">"; cin >> x;
+        cout << " > "; cin >> x;
  
         if (guesses.find(x) == string::npos)
             guesses += x;
@@ -222,9 +149,9 @@ int main()
     } while (tries < 10);
  
     if (win)
-        PrintMessage("YOU WON!");
+        cout <<endl <<"YOU WON!";
     else
-        PrintMessage("GAME OVER");
+        cout <<endl << "GAME OVER. The word was: " <<wordToGuess << endl;
 
     getchar();
     return 0;
