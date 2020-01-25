@@ -120,12 +120,18 @@ int main()
 	wordToGuess = LoadRandomWord(chosenCategory);
 	
 	int wordLength = wordToGuess.size();
-	char wordArray[wordLength+1];
-	strcpy(wordArray, wordToGuess.c_str());
+	//string wordArray[wordLength+1];
+	//strcpy(wordArray, wordToGuess.c_str());
+	char wordArray[wordToGuess.length()]; 
+  
+    int i; 
+    for (i = 0; i < sizeof(wordArray); i++) { 
+        wordArray[i] = wordToGuess[i]; 
+    }
 
 	int tries = 0;
 	bool win = false;
-	std::vector<char> guessed;
+	vector<char> guessed;
 
 	cout << "Welcome to Hangman!" << endl;
 	do
